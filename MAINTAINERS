@@ -11273,6 +11273,14 @@ L:	linux-serial@vger.kernel.org
 S:	Odd Fixes
 F:	drivers/tty/serial/rp2.*
 
+ROCKCHIP SERIAL FLASH CONTROLLER DRIVER
+M:	Shawn Lin <shawn.lin@rock-chips.com>
+L:	linux-mtd@lists.infradead.org
+L:	linux-rockchip@lists.infradead.org
+S:	Maintained
+F:	Documentation/devicetree/bindings/mtd/rockchip-sfc.txt
+F:	drivers/mtd/spi-nor/rockchip-sfc.c
+
 ROSE NETWORK LAYER
 M:	Ralf Baechle <ralf@linux-mips.org>
 L:	linux-hams@vger.kernel.org

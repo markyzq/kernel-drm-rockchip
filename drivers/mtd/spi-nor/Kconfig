@@ -113,4 +113,11 @@ config SPI_STM32_QUADSPI
 	  This enables support for the STM32 Quad SPI controller.
 	  We only connect the NOR to this controller.
 
+config SPI_ROCKCHIP_SFC
+	tristate "Rockchip Serial Flash Controller(SFC)"
+	depends on ARCH_ROCKCHIP || COMPILE_TEST
+	depends on HAS_IOMEM && HAS_DMA
+	help
+	  This enables support for rockchip serial flash controller.
+
 endif # MTD_SPI_NOR
