@@ -1206,6 +1206,7 @@
 		assigned-clocks =
 			<&cru PLL_GPLL>, <&cru PLL_CPLL>,
 			<&cru PLL_NPLL>,
+			<&cru ARMCLKL>, <&cru ARMCLKB>,
 			<&cru ACLK_PERIHP>, <&cru HCLK_PERIHP>,
 			<&cru PCLK_PERIHP>,
 			<&cru ACLK_PERILP0>, <&cru HCLK_PERILP0>,
@@ -1214,6 +1215,7 @@
 		assigned-clock-rates =
 			 <594000000>,  <800000000>,
 			<1000000000>,
+			 <408000000>, <408000000>,
 			 <150000000>,   <75000000>,
 			  <37500000>,
 			 <100000000>,  <100000000>,
