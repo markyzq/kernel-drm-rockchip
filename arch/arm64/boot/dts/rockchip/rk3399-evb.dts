@@ -151,6 +151,42 @@
 
 };
 
+&mipi_dsi {
+	status = "okay";
+
+	panel {
+		compatible ="boe,tv080wum-nl0";
+
+		reg = <0>;
+		backlight = <&backlight>;
+		status = "okay";
+	};
+};
+
+&hdmi {
+	status = "okay";
+};
+
+&vopb {
+	status = "okay";
+};
+
+&vopb_mmu {
+	status = "okay";
+};
+
+&vopl {
+	status = "okay";
+};
+
+&vopl_mmu {
+	status = "okay";
+};
+
+&display_subsystem {
+	status = "okay";
+};
+
 &emmc_phy {
 	status = "okay";
 };
