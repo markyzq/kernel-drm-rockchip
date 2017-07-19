@@ -53,6 +53,7 @@
 
 	chosen {
 		stdout-path = "serial2:1500000n8";
+		bootargs = "root=/dev/mtdblock2 mtdparts=spi-nor:256k@0(u-boot)ro,6m(kernel)ro,9m(rootfs),-(freedisk)";
 	};
 };
 
