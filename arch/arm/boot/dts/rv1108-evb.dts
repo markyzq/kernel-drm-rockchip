@@ -110,6 +110,13 @@
 	i2c-scl-falling-time-ns = <16>;
 	clock-frequency = <400000>;
 
+	bma250: accelerometer@19 {
+		compatible = "bosch,bma250e";
+		reg = <0x19>;
+		interrupt-parent = <&gpio0>;
+		interrupts = <RK_PB3 IRQ_TYPE_LEVEL_LOW>;
+	};
+
 	rk805: pmic@18 {
 		compatible = "rockchip,rk805";
 		reg = <0x18>;
