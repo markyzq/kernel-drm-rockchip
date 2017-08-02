@@ -9,7 +9,8 @@ if [ ! -n "$1" ]; then
   exit 0
 fi 
 
-KERNEL_DIR=$(pwd)
+OUT=$2
+KERNEL_DIR=$(pwd)/$OUT
 IMAGE=$(cd `dirname $0`; pwd)
 PRODUCT=$1
 
