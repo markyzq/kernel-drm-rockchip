@@ -229,7 +229,8 @@ static const struct vop_modeset rk3288_modeset = {
 };
 
 static const struct vop_output rk3288_output = {
-	.pin_pol = VOP_REG(RK3288_DSP_CTRL0, 0xf, 4),
+	.pin_pol = VOP_REG(RK3288_DSP_CTRL0, 0x7, 4),
+	.dclk_pol = VOP_REG(RK3288_DSP_CTRL0, 0x1, 7),
 	.rgb_en = VOP_REG(RK3288_SYS_CTRL, 0x1, 12),
 	.hdmi_en = VOP_REG(RK3288_SYS_CTRL, 0x1, 13),
 	.edp_en = VOP_REG(RK3288_SYS_CTRL, 0x1, 14),
@@ -343,6 +344,12 @@ static const struct vop_output rk3368_output = {
 	.hdmi_pin_pol = VOP_REG(RK3368_DSP_CTRL1, 0xf, 20),
 	.edp_pin_pol = VOP_REG(RK3368_DSP_CTRL1, 0xf, 24),
 	.mipi_pin_pol = VOP_REG(RK3368_DSP_CTRL1, 0xf, 28),
+
+	.rgb_dclk_pol = VOP_REG(RK3368_DSP_CTRL1, 0x1, 19),
+	.hdmi_dclk_pol = VOP_REG(RK3368_DSP_CTRL1, 0x1, 23),
+	.edp_dclk_pol = VOP_REG(RK3368_DSP_CTRL1, 0x1, 27),
+	.mipi_dclk_pol = VOP_REG(RK3368_DSP_CTRL1, 0x1, 31),
+
 	.rgb_en = VOP_REG(RK3288_SYS_CTRL, 0x1, 12),
 	.hdmi_en = VOP_REG(RK3288_SYS_CTRL, 0x1, 13),
 	.edp_en = VOP_REG(RK3288_SYS_CTRL, 0x1, 14),
@@ -391,6 +398,13 @@ static const struct vop_output rk3399_output = {
 	.hdmi_pin_pol = VOP_REG(RK3368_DSP_CTRL1, 0xf, 20),
 	.edp_pin_pol = VOP_REG(RK3368_DSP_CTRL1, 0xf, 24),
 	.mipi_pin_pol = VOP_REG(RK3368_DSP_CTRL1, 0xf, 28),
+
+	.dp_dclk_pol = VOP_REG(RK3399_DSP_CTRL1, 0x1, 19),
+	.rgb_dclk_pol = VOP_REG(RK3368_DSP_CTRL1, 0x1, 19),
+	.hdmi_dclk_pol = VOP_REG(RK3368_DSP_CTRL1, 0x1, 23),
+	.edp_dclk_pol = VOP_REG(RK3368_DSP_CTRL1, 0x1, 27),
+	.mipi_dclk_pol = VOP_REG(RK3368_DSP_CTRL1, 0x1, 31),
+
 	.dp_en = VOP_REG(RK3399_SYS_CTRL, 0x1, 11),
 	.rgb_en = VOP_REG(RK3288_SYS_CTRL, 0x1, 12),
 	.hdmi_en = VOP_REG(RK3288_SYS_CTRL, 0x1, 13),
@@ -461,10 +475,16 @@ static const struct vop_output rk3328_output = {
 	.hdmi_en = VOP_REG(RK3328_SYS_CTRL, 0x1, 13),
 	.edp_en = VOP_REG(RK3328_SYS_CTRL, 0x1, 14),
 	.mipi_en = VOP_REG(RK3328_SYS_CTRL, 0x1, 15),
+
 	.rgb_pin_pol = VOP_REG(RK3328_DSP_CTRL1, 0xf, 16),
 	.hdmi_pin_pol = VOP_REG(RK3328_DSP_CTRL1, 0xf, 20),
 	.edp_pin_pol = VOP_REG(RK3328_DSP_CTRL1, 0xf, 24),
 	.mipi_pin_pol = VOP_REG(RK3328_DSP_CTRL1, 0xf, 28),
+
+	.rgb_dclk_pol = VOP_REG(RK3328_DSP_CTRL1, 0x1, 19),
+	.hdmi_dclk_pol = VOP_REG(RK3328_DSP_CTRL1, 0x1, 23),
+	.edp_dclk_pol = VOP_REG(RK3328_DSP_CTRL1, 0x1, 27),
+	.mipi_dclk_pol = VOP_REG(RK3328_DSP_CTRL1, 0x1, 31),
 };
 
 static const struct vop_misc rk3328_misc = {
