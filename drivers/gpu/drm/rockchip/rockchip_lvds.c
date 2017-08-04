@@ -74,8 +74,10 @@ struct rockchip_lvds {
 
 static inline void lvds_writel(struct rockchip_lvds *lvds, u32 offset, u32 val)
 {
+#if 0
 	writel_relaxed(val, lvds->regs + offset);
 	writel_relaxed(val, lvds->regs + offset + 0x100);
+#endif
 }
 
 static inline int lvds_name_to_format(const char *s)
@@ -110,6 +112,7 @@ static int rockchip_lvds_poweron(struct rockchip_lvds *lvds)
 {
 	int ret;
 
+#if 0
 	ret = clk_enable(lvds->pclk);
 	if (ret < 0) {
 		dev_err(lvds->dev, "failed to enable lvds pclk %d\n", ret);
@@ -193,12 +196,13 @@ static int rockchip_lvds_poweron(struct rockchip_lvds *lvds)
 	       lvds->regs + RK3288_LVDS_CFG_REGC);
 	writel(RK3288_LVDS_CFG_REG21_TX_ENABLE,
 	       lvds->regs + RK3288_LVDS_CFG_REG21);
-
+#endif
 	return 0;
 }
 
 static void rockchip_lvds_poweroff(struct rockchip_lvds *lvds)
 {
+#if 0
 	int ret;
 
 	ret = regmap_write(lvds->grf,
@@ -213,6 +217,7 @@ static void rockchip_lvds_poweroff(struct rockchip_lvds *lvds)
 
 	pm_runtime_put(lvds->dev);
 	clk_disable(lvds->pclk);
+#endif
 }
 
 static enum drm_connector_status
@@ -238,10 +243,13 @@ static struct drm_connector_funcs rockchip_lvds_connector_funcs = {
 
 static int rockchip_lvds_connector_get_modes(struct drm_connector *connector)
 {
+	return 0;
+#if 0
 	struct rockchip_lvds *lvds = connector_to_lvds(connector);
 	struct drm_panel *panel = lvds->panel;
 
 	return panel->funcs->get_modes(panel);
+#endif
 }
 
 static struct drm_encoder *
@@ -268,6 +276,7 @@ struct drm_connector_helper_funcs rockchip_lvds_connector_helper_funcs = {
 
 static void rockchip_lvds_encoder_dpms(struct drm_encoder *encoder, int mode)
 {
+#if 0
 	struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
 	int ret;
 
@@ -306,6 +315,7 @@ static void rockchip_lvds_encoder_dpms(struct drm_encoder *encoder, int mode)
 
 out:
 	mutex_unlock(&lvds->suspend_lock);
+#endif
 }
 
 static bool
@@ -320,6 +330,7 @@ static void rockchip_lvds_encoder_mode_set(struct drm_encoder *encoder,
 					  struct drm_display_mode *mode,
 					  struct drm_display_mode *adjusted)
 {
+#if 0
 	struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
 	u32 h_bp = mode->htotal - mode->hsync_start;
 	u8 pin_hsync = (mode->flags & DRM_MODE_FLAG_PHSYNC) ? 1 : 0;
@@ -345,11 +356,13 @@ static void rockchip_lvds_encoder_mode_set(struct drm_encoder *encoder,
 		dev_err(lvds->dev, "Could not write to GRF: %d\n", ret);
 		return;
 	}
+#endif
 }
 
 static int rockchip_lvds_set_vop_source(struct rockchip_lvds *lvds,
 					struct drm_encoder *encoder)
 {
+#if 0
 	u32 val;
 	int ret;
 
@@ -366,6 +379,7 @@ static int rockchip_lvds_set_vop_source(struct rockchip_lvds *lvds,
 	ret = regmap_write(lvds->grf, lvds->soc_data->grf_soc_con6, val);
 	if (ret < 0)
 		return ret;
+#endif
 
 	return 0;
 }
@@ -387,13 +401,13 @@ static void rockchip_lvds_encoder_commit(struct drm_encoder *encoder)
 {
 	struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
 
-	rockchip_lvds_encoder_dpms(encoder, DRM_MODE_DPMS_ON);
-	rockchip_lvds_set_vop_source(lvds, encoder);
+//	rockchip_lvds_encoder_dpms(encoder, DRM_MODE_DPMS_ON);
+//	rockchip_lvds_set_vop_source(lvds, encoder);
 }
 
 static void rockchip_lvds_encoder_disable(struct drm_encoder *encoder)
 {
-	rockchip_lvds_encoder_dpms(encoder, DRM_MODE_DPMS_OFF);
+//	rockchip_lvds_encoder_dpms(encoder, DRM_MODE_DPMS_OFF);
 }
 
 static struct drm_encoder_helper_funcs rockchip_lvds_encoder_helper_funcs = {
@@ -472,11 +486,13 @@ static int rockchip_lvds_bind(struct device *dev, struct device *master,
 		goto err_free_connector;
 	}
 
+#if 0
 	ret = drm_panel_attach(lvds->panel, connector);
 	if (ret < 0) {
 		DRM_ERROR("failed to attach connector and encoder\n");
 		goto err_free_connector;
 	}
+#endif
 
 	pm_runtime_enable(dev);
 
@@ -494,9 +510,11 @@ static void rockchip_lvds_unbind(struct device *dev, struct device *master,
 {
 	struct rockchip_lvds *lvds = dev_get_drvdata(dev);
 
+#if 0
 	rockchip_lvds_encoder_dpms(&lvds->encoder, DRM_MODE_DPMS_OFF);
 
 	drm_panel_detach(lvds->panel);
+#endif
 
 	drm_connector_cleanup(&lvds->connector);
 	drm_encoder_cleanup(&lvds->encoder);
@@ -529,6 +547,8 @@ static int rockchip_lvds_probe(struct platform_device *pdev)
 	lvds->dev = dev;
 	lvds->suspend = true;
 
+	dev_set_drvdata(dev, lvds);
+#if 0
 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
 	lvds->regs = devm_ioremap_resource(&pdev->dev, res);
 	if (IS_ERR(lvds->regs))
@@ -550,7 +570,6 @@ static int rockchip_lvds_probe(struct platform_device *pdev)
 	match = of_match_node(rockchip_lvds_dt_ids, dev->of_node);
 	lvds->soc_data = match->data;
 
-	dev_set_drvdata(dev, lvds);
 	mutex_init(&lvds->suspend_lock);
 
 	if (of_property_read_string(dev->of_node, "rockchip,output", &name))
@@ -608,7 +627,7 @@ static int rockchip_lvds_probe(struct platform_device *pdev)
 		dev_err(dev, "failed to prepare pclk_lvds\n");
 		return ret;
 	}
-
+#endif
 	ret = component_add(&pdev->dev, &rockchip_lvds_component_ops);
 	if (ret < 0)
 		clk_unprepare(lvds->pclk);
@@ -618,10 +637,12 @@ static int rockchip_lvds_probe(struct platform_device *pdev)
 
 static int rockchip_lvds_remove(struct platform_device *pdev)
 {
+#if 0
 	struct rockchip_lvds *lvds = dev_get_drvdata(&pdev->dev);
 
 	component_del(&pdev->dev, &rockchip_lvds_component_ops);
 	clk_unprepare(lvds->pclk);
+#endif
 
 	return 0;
 }
