@@ -17,4 +17,5 @@ PRODUCT=$1
 cat ${KERNEL_DIR}/arch/arm/boot/zImage ${KERNEL_DIR}/arch/arm/boot/dts/$PRODUCT.dtb > $IMAGE/zImage-dtb
 $IMAGE/kernelimage --pack --kernel $IMAGE/zImage-dtb $IMAGE/kernel.img 0x62000000 > /dev/null && \
 echo "Image: kernel image is ready ${PRODUCT}"
-$IMAGE/firmwareMerger -p $IMAGE/setting.ini $IMAGE/
+echo "kernel: "${KERNEL_DIR}/arch/arm/boot/zImage
+echo "dtb: "${KERNEL_DIR}/arch/arm/boot/dts/$PRODUCT.dtb
